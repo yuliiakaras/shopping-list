@@ -1,0 +1,24 @@
+mat-card {
+    display: flex;
+    width: 50%;
+    margin: 50px auto;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+form {
+    width: 100%;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+button {
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
+}
