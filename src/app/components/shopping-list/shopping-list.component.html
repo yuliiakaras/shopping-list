@@ -47,11 +47,11 @@
 <mat-card>
     <mat-list>
       <div class="container" *ngFor="let product of products">
-        <mat-list-item >
+        <mat-list-item [routerLink]="['/products', product.id]">
           <span matListItemTitle>{{product.name}}</span>
           <span matListItemLine>{{product.description}}</span>
           <span matListItemLine>Price: {{product.price}}</span>
-          <mat-icon matListItemIcon (click)="deleteProduct(product)">check_circle_outline</mat-icon>
+          <mat-icon matListItemIcon (click)="deleteProduct(product)">delete</mat-icon>
          
         </mat-list-item>
         <mat-divider></mat-divider>

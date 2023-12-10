@@ -19,11 +19,7 @@ export class ShoppingListComponent implements OnInit {
   constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit(): void {
-    this.loadProducts();
-  }
-
-  loadProducts(): void {
-    this.shoppingListService.getProducts().subscribe({
+    this.shoppingListService.products$.subscribe({
       next: (products: Product[]) => {
         this.products = products;
       },
@@ -33,38 +29,36 @@ export class ShoppingListComponent implements OnInit {
     });
   }
 
- // shopping-list.component.ts
+  createProduct(): void {
+    if (this.shoppinglistForm.valid) {
+      const title = this.shoppinglistForm.get('title')?.value as string;
+      const description = this.shoppinglistForm.get('description')?.value as string;
+      const price = parseFloat(this.shoppinglistForm.get('price')?.value as string);
+      const tagsRaw = this.shoppinglistForm.get('tags')?.value;
 
-createProduct(): void {
-  if (this.shoppinglistForm.valid) {
-    const title = this.shoppinglistForm.get('title')?.value as string;
-    const description = this.shoppinglistForm.get('description')?.value as string;
-    const price = parseFloat(this.shoppinglistForm.get('price')?.value as string);
-    const tagsRaw = this.shoppinglistForm.get('tags')?.value;
+      const tags = Array.isArray(tagsRaw) ? tagsRaw : (tagsRaw ? [tagsRaw] : []);
 
-    // Check the type of tagsRaw
-    const tags = Array.isArray(tagsRaw) ? tagsRaw : (tagsRaw ? [tagsRaw] : []);
+      const product: Product = {
+        id: 0,
+        name: title,
+        description,
+        price,
+        tags
+      };
 
-    const product: Product = {
-      id: 0,
-      name: title,
-      description,
-      price,
-      tags
-    };
-
-    this.shoppingListService.addProduct(product).subscribe({
-      next: (addedProduct: Product) => {
-        this.products.push(addedProduct);
-        this.shoppinglistForm.reset();
-      },
-      error: (error) => {
-        console.error('Error adding product', error);
-      }
-    });
+      this.shoppingListService.addProduct(product).subscribe({
+        next: (addedProduct: Product) => {
+          this.products.push(addedProduct);
+          this.shoppinglistForm.reset();
+        },
+        error: (error) => {
+          console.error('Error adding product', error);
+        }
+      });
+    }
   }
-}
 
+  
 
   deleteProduct(product: Product): void {
     this.shoppingListService.deleteProduct(product.id).subscribe({
