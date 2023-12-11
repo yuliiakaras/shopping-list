@@ -40,23 +40,16 @@ export class ShoppingListService {
   }
   
   addProduct(product: Product): Observable<Product> {
-    return of(this.localProducts)
-      .pipe(
-        map(products => {
-          const maxId = Math.max(...products.map(a => a.id), 0);
-          product.id = maxId + 1;
-          products.push(product);
-          this.updateTagsInService(products);
-          return product;
-        }),
-        catchError(this.handleError('addProduct', product))
-      );
+    const maxId = Math.max(...this.localProducts.map(a => a.id), 0);
+    product.id = maxId + 1;
+    this.localProducts.push(product);
+    this.updateTagsInService(this.localProducts);
+    this.productsSubject.next([...this.localProducts]);
+    return of(product);
   }
+  
 
   getProductById(id: number): Product | undefined {
-    console.log('Local Products:', this.localProducts);
-    console.log(id);
-    
     return this.localProducts.find((product) => product.id === id);
   }
 

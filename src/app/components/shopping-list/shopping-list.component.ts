@@ -57,26 +57,26 @@ export class ShoppingListComponent implements OnInit {
       const description = this.shoppinglistForm.get('description')?.value as string;
       const price = parseFloat(this.shoppinglistForm.get('price')?.value as string);
       const tagsRaw = this.shoppinglistForm.get('tags')?.value as string;
-      const tags = tagsRaw.split(/[ ,]+/) ;
+      const tags = tagsRaw.split(/[ ,]+/);
       const product: Product = {
         id: 0,
         name: title,
         description,
         price,
-        tags
+        tags,
       };
-      
+  
       this.shoppingListService.addProduct(product).subscribe({
-        next: (addedProduct: Product) => {
-          this.products.push(addedProduct);
-          this.shoppinglistForm.reset();
-        },
         error: (error) => {
           console.error('Error adding product', error);
-        }
+        },
       });
+  
+      this.shoppinglistForm.reset();
     }
   }
+  
+  
   deleteProduct(product: Product): void {
     this.shoppingListService.deleteProduct(product.id).subscribe({
       next: (updatedProducts: Product[]) => {
@@ -87,4 +87,6 @@ export class ShoppingListComponent implements OnInit {
       }
     });
   }
+
+  
 }

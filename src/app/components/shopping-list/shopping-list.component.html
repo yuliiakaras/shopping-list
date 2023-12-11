@@ -30,6 +30,6 @@
       <mat-label>Product Tags</mat-label>
       <input type="text" matInput formControlName="tags" placeholder="Product Tags">
     </mat-form-field>
-    <button mat-raised-button type="submit" color="primary" [disabled]="!shoppinglistForm">Submit</button>
+    <button mat-raised-button type="submit" color="primary" [routerLink]="['/products']" [disabled]="!shoppinglistForm ">Submit</button>
   </form>
 </mat-card>
