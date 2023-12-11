@@ -4,8 +4,9 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 const routes: Routes = [
-  { path: 'products/:id', component: ProductDetailComponent },
   { path: 'products', component: ShoppingListComponent },
+  { path: 'products/:id', component: ProductDetailComponent },
+  { path: ':tagName', component: ShoppingListComponent },
   { path: '', redirectTo: '/products', pathMatch: 'full' },
 ];
 

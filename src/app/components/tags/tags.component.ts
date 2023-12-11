@@ -1,8 +1,6 @@
-// tags.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { TagService } from './tag.service';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tags',
@@ -12,7 +10,10 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 export class TagsComponent implements OnInit {
   tags: string[] = [];
 
-  constructor(private tagService: TagService, private shoppingListService: ShoppingListService) {}
+  constructor(
+    private tagService: TagService,
+    private router: Router 
+  ) {}
 
   ngOnInit(): void {
     this.tagService.tags$.subscribe((tags) => {
@@ -20,7 +21,7 @@ export class TagsComponent implements OnInit {
     });
   }
 
-  // filterByTag(tag: string): void {
-  //   this.shoppingListService.filterProductsByTag(tag);
-  // }
+  filterByTag(tag: string): void {
+    this.router.navigate(['/products', tag]);
+  }
 }

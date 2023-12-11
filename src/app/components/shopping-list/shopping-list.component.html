@@ -1,25 +1,16 @@
-<!-- <mat-card>
-  <form [formGroup]="shoppinglistForm">
-    <mat-form-field>
-      <mat-label>Product Name</mat-label>
-      <input type="text" mat-input formControlName="title" placeholder="Product Name" required>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Product Description</mat-label>
-      <input type="text" mat-input formControlName="description" placeholder="Product Description" required>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Product Price</mat-label>
-      <input type="text" mat-input formControlName="price" placeholder="Product Price" required>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Product Tags</mat-label>
-      <input type="text" mat-input formControlName="tags" placeholder="Product Tags">
-    </mat-form-field>
-    <button mat-raised-button type="submit" color="primary">Submit</button>
-  </form>
-</mat-card> -->
-
+<mat-card>
+  <mat-list>
+    <div class="container" *ngFor="let product of products">
+      <mat-list-item [routerLink]="['/products', product.id]">
+        <span matListItemTitle>{{product.name}}</span>
+        <span matListItemLine>{{product.description}}</span>
+        <span matListItemLine>Price: {{product.price}}</span>
+        <mat-icon matListItemIcon (click)="deleteProduct(product)">delete</mat-icon>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list>
+</mat-card>
 
 <mat-card>
   <form [formGroup]="shoppinglistForm" (ngSubmit)="createProduct()">
@@ -42,21 +33,3 @@
     <button mat-raised-button type="submit" color="primary" [disabled]="!shoppinglistForm">Submit</button>
   </form>
 </mat-card>
-
-
-<mat-card>
-    <mat-list>
-      <div class="container" *ngFor="let product of products">
-        <mat-list-item [routerLink]="['/products', product.id]">
-          <span matListItemTitle>{{product.name}}</span>
-          <span matListItemLine>{{product.description}}</span>
-          <span matListItemLine>Price: {{product.price}}</span>
-          <mat-icon matListItemIcon (click)="deleteProduct(product)">delete</mat-icon>
-         
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </div>
-        
-      </mat-list>
-</mat-card>
-

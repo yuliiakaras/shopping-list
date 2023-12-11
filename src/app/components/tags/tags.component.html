@@ -1,7 +1,6 @@
-<!-- tags.component.html -->
-
-<div>
-    <h3>Tags</h3>
-    <!-- <button *ngFor="let tag of tags" (click)="filterByTag(tag)">{{ tag }}</button> -->
-  </div>
-  
+<div class="container">
+  <button mat-raised-button color="accent" [routerLink]="['/']">All</button>
+  <div *ngFor="let tag of tags">
+    <button mat-raised-button color="primary" [routerLink]="['/products']" [queryParams]="{ tag: tag }">{{ tag }}</button>
+  </div>  
+</div>

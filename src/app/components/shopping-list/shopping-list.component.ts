@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShoppingListService } from './shopping-list.service';
 import { Product } from '../../models/product.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-list',
@@ -10,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ShoppingListComponent implements OnInit {
   products: Product[] = [];
+  filteredProducts: Product[] = [];
   shoppinglistForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
@@ -17,16 +19,34 @@ export class ShoppingListComponent implements OnInit {
     tags: new FormControl('', [Validators.required])
   });
   constructor(
+    private route: ActivatedRoute,
     private shoppingListService: ShoppingListService
     ) {}
 
   ngOnInit(): void {
-    this.shoppingListService.products$.subscribe({
-      next: (products: Product[]) => {
-        this.products = products;
-      },
-      error: (error) => {
-        console.error('Error fetching products', error);
+    this.route.queryParamMap.subscribe(queryParams => {
+      const tagName = queryParams.get('tag');
+  
+      if (tagName) {
+        this.shoppingListService.filterProductsByTag(tagName).subscribe({
+          next: products => {
+            console.log('Products:', products);
+            this.products = products;
+          },
+          error: error => {
+            console.error('Error fetching products', error);
+          }
+        });
+      } else {
+        this.shoppingListService.products$.subscribe({
+          next: products => {
+            console.log('All Products:', products);
+            this.products = products;
+          },
+          error: error => {
+            console.error('Error fetching products', error);
+          }
+        });
       }
     });
   }
@@ -45,7 +65,6 @@ export class ShoppingListComponent implements OnInit {
         price,
         tags
       };
-      console.log(product);
       
       this.shoppingListService.addProduct(product).subscribe({
         next: (addedProduct: Product) => {
@@ -58,9 +77,6 @@ export class ShoppingListComponent implements OnInit {
       });
     }
   }
-
-  
-
   deleteProduct(product: Product): void {
     this.shoppingListService.deleteProduct(product.id).subscribe({
       next: (updatedProducts: Product[]) => {

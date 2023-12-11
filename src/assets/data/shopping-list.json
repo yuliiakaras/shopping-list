@@ -18,7 +18,7 @@
       "name": "Product 3",
       "description": "Description for Product 3.",
       "price": 49.99,
-      "tags": ["tag1", "tag4"]
+      "tags": ["tag1", "tag45"]
     },
     {
      "id": 4,

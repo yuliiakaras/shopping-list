@@ -1,27 +1,31 @@
-# ShoppingList
+# Angular Shopping List Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
+## Overview
 
-## Development server
+This project is an Angular application that allows users to manage a shopping list. Users can create, update, delete, and view product details. Each product has attributes such as name, description, price, and tags. The main page displays a shopping list with tags above it, and a form to create new products below.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Main Features
 
-## Code scaffolding
+- Create new products with a user-friendly form.
+- View a list of all products with essential details.
+- Edit product fields (name, description, price and tags (for tags separate words with space or coma ))
+- Delete products with a single click.
+- Filter products by tags.
+- Tags are dynamic, so only user created tags are presented.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Setup and Run
 
-## Build
+### Prerequisites
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Make sure you have Node.js and npm installed on your machine.
 
-## Running unit tests
+### Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clone the repository: `git clone https://github.com/yuliiakaras/shopping-list`
+2. Navigate to the project directory: `cd shopping-list`
+3. Install dependencies: `npm install`
 
-## Running end-to-end tests
+### Running the Application
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. Start the development server: `ng serve`
+2. Open your browser and go to `http://localhost:4200/`
