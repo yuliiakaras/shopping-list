@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Product } from '../../models/product.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
+
 
 @Component({
   selector: 'app-product-detail',
@@ -15,7 +18,8 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private shoppingListService: ShoppingListService
+    private shoppingListService: ShoppingListService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -29,10 +33,24 @@ export class ProductDetailComponent implements OnInit {
     this.router.navigate(['/products']);
   }
 
-  editProduct(): void {
-
+  editProduct(product: Product): void {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      width: '600px',
+      data: {
+        product
+      }
+    })
+    dialogRef.afterClosed().subscribe(
+      (result: any) => {
+        if(!result) {
+          return;
+        }
+        result.product.tags = Array.from(new Set(String(result.product.tags).split(/[ ,]+/)));
+        console.log(result);
+        this.shoppingListService.updateProduct(result.product.id, result.product);
+      }
+    )
   }
-
   deleteProduct(): void {
     if (this.product) {
       this.shoppingListService.deleteProduct(this.product.id).subscribe({

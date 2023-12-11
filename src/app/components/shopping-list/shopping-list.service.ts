@@ -47,6 +47,23 @@ export class ShoppingListService {
     return this.localProducts.find((product) => product.id === id);
   }
 
+
+    updateProduct(id: number, product: Product): Observable<Product | any> {
+      return of(this.localProducts)
+      .pipe(
+        tap(products => {
+          const index = products.findIndex(a => a.id === id);
+          if (index !== -1) {
+            
+            console.log(product);
+            
+            products[index] = { ...product, id };
+          }
+        }),
+        catchError(this.handleError('updateProduct', product))
+      );
+  }
+
   deleteProduct(id: number): Observable<any> {
     return of(this.localProducts)
       .pipe(
@@ -70,15 +87,4 @@ export class ShoppingListService {
   }
 }
 
-  // updateProduct(id: number, product: Product): Observable<Product> {
-  //   return this.getProducts()
-  //     .pipe(
-  //       tap(products => {
-  //         const index = products.findIndex(a => a.id === id);
-  //         if (index !== -1) {
-  //           products[index] = { ...product, id };
-  //         }
-  //       }),
-  //       catchError(this.handleError('updateProduct', product))
-  //     );
-  // }
+

@@ -13,13 +13,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { ProductDialogComponent } from './components/product-dialog/product-dialog.component';
+import { TagsComponent } from './components/tags/tags.component';
+
+
 
 @NgModule({
  declarations: [
     AppComponent,
     ShoppingListComponent,
     HeaderComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ProductDialogComponent,
+    TagsComponent
  ],
  imports: [
     BrowserModule,

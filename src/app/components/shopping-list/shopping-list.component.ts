@@ -16,7 +16,9 @@ export class ShoppingListComponent implements OnInit {
     price: new FormControl('', [Validators.required]),
     tags: new FormControl('', [Validators.required])
   });
-  constructor(private shoppingListService: ShoppingListService) {}
+  constructor(
+    private shoppingListService: ShoppingListService
+    ) {}
 
   ngOnInit(): void {
     this.shoppingListService.products$.subscribe({
@@ -34,10 +36,8 @@ export class ShoppingListComponent implements OnInit {
       const title = this.shoppinglistForm.get('title')?.value as string;
       const description = this.shoppinglistForm.get('description')?.value as string;
       const price = parseFloat(this.shoppinglistForm.get('price')?.value as string);
-      const tagsRaw = this.shoppinglistForm.get('tags')?.value;
-
-      const tags = Array.isArray(tagsRaw) ? tagsRaw : (tagsRaw ? [tagsRaw] : []);
-
+      const tagsRaw = this.shoppinglistForm.get('tags')?.value as string;
+      const tags = tagsRaw.split(/[ ,]+/) ;
       const product: Product = {
         id: 0,
         name: title,
@@ -45,7 +45,8 @@ export class ShoppingListComponent implements OnInit {
         price,
         tags
       };
-
+      console.log(product);
+      
       this.shoppingListService.addProduct(product).subscribe({
         next: (addedProduct: Product) => {
           this.products.push(addedProduct);

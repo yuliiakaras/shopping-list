@@ -1,13 +1,13 @@
   <mat-card>
-    <mat-list>    
-        <mat-list-item *ngIf="product">
+    <mat-list *ngIf="product">    
+        <mat-list-item>
           <span matListItemTitle>{{product.name}}</span>
           <span matListItemLine>{{product.description}}</span>
           <span matListItemLine>Price: {{product.price}}</span>
           <mat-icon matListItemIcon (click)="deleteProduct()">delete</mat-icon>
          
         </mat-list-item>
-        <button mat-raised-button color="primary" (click)="editProduct()">Edit</button>
+        <button mat-raised-button color="primary" (click)="editProduct(product)">Edit</button>
         <button mat-raised-button color="primary" (click)="goBack()">Go Back</button>
       </mat-list>
       
